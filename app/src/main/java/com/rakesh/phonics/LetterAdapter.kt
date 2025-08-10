@@ -19,17 +19,14 @@ class LetterAdapter(
 
     private val vibrantColors = listOf(
         Color.parseColor("#FFB300"), // Amber
-        // Removed: #EA4335 (Red)
-        // Removed: #FF5722 (Deep Orange)
         Color.parseColor("#34A853"), // Green
-//        Color.parseColor("#4285F4"), // Blue/
         Color.parseColor("#FBBC05"), // Yellow
         Color.parseColor("#AB47BC"), // Purple
-        Color.parseColor("#00BCD4"), // Cyan
-
-        // Replacements for red tones
         Color.parseColor("#8BC34A"), // Light Green
-        Color.parseColor("#3F51B5")  // Indigo
+        Color.parseColor("#FFD54F"), // Soft Amber
+        Color.parseColor("#A1887F"), // Warm Brown
+        Color.parseColor("#F4511E"), // Deep Orange (more earthy, not pure red)
+        Color.parseColor("#9E9D24")  // Olive
 
     )
 
