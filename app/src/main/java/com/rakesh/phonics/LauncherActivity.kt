@@ -14,11 +14,9 @@ class LauncherActivity : AppCompatActivity() {
         setContentView(R.layout.activity_launcher)
 
 
-        val button = findViewById<MaterialButton>(R.id.btn_learn_letter_sounds)
+        val button = findViewById<MaterialButton>(R.id.btn_learn_single_letter_sound)
         button.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
         }
-
-
     }
 }

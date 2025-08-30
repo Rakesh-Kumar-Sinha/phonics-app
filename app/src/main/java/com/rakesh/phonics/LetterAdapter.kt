@@ -2,6 +2,8 @@ package com.rakesh.phonics
 
 import android.content.Context
 import android.graphics.Color
+import android.media.AudioAttributes
+import android.media.AudioManager
 import android.media.MediaPlayer
 import android.view.LayoutInflater
 import android.view.View
@@ -18,15 +20,15 @@ class LetterAdapter(
 ) : RecyclerView.Adapter<LetterAdapter.LetterViewHolder>() {
 
     private val vibrantColors = listOf(
-        Color.parseColor("#FFB300"), // Amber
-        Color.parseColor("#34A853"), // Green
-        Color.parseColor("#FBBC05"), // Yellow
-        Color.parseColor("#AB47BC"), // Purple
+//        Color.parseColor("#FFB300"), // Amber
+//        Color.parseColor("#34A853"), // Green
+//        Color.parseColor("#FBBC05"), // Yellow
+//        Color.parseColor("#AB47BC"), // Purple
         Color.parseColor("#8BC34A"), // Light Green
-        Color.parseColor("#FFD54F"), // Soft Amber
-        Color.parseColor("#A1887F"), // Warm Brown
-        Color.parseColor("#F4511E"), // Deep Orange (more earthy, not pure red)
-        Color.parseColor("#9E9D24")  // Olive
+//        Color.parseColor("#FFD54F"), // Soft Amber
+//        Color.parseColor("#A1887F"), // Warm Brown
+//        Color.parseColor("#F4511E"), // Deep Orange (more earthy, not pure red)
+//        Color.parseColor("#9E9D24")  // Olive
 
     )
 
@@ -55,28 +57,35 @@ class LetterAdapter(
 
     private fun playAudioFromAssets(fileName: String, onCompletion: () -> Unit) {
         try {
-            val assetFileDescriptor = context.assets.openFd(fileName)
-            val mediaPlayer = MediaPlayer()
-            mediaPlayer.setDataSource(
-                assetFileDescriptor.fileDescriptor,
-                assetFileDescriptor.startOffset,
-                assetFileDescriptor.length
-            )
-            assetFileDescriptor.close()
+            val afd = context.assets.openFd(fileName)
+            val mediaPlayer = MediaPlayer().apply {
+                setAudioAttributes(
+                    AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_MEDIA)
+                        .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                        .build()
+                )
+                setDataSource(afd.fileDescriptor, afd.startOffset, afd.length)
+                afd.close()
 
-            mediaPlayer.setOnPreparedListener { it.start() }
+                isLooping = false
+                setVolume(1.0f, 1.0f) // make sure no channel imbalance
 
-            mediaPlayer.setOnCompletionListener {
-                it.release()
-                onCompletion() // Call the callback after playback
+                setOnCompletionListener {
+                    it.release()
+                    onCompletion()
+                }
+
+                prepare()
+                start()
             }
-
-            mediaPlayer.prepareAsync()
         } catch (e: Exception) {
             e.printStackTrace()
-            onCompletion() // Ensure callback is called even on error
+            onCompletion()
         }
     }
+
+
 
 
     class LetterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

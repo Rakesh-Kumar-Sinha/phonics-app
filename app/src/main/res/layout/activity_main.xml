@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:background="#026894"
         app:title="@string/app_name"
-        app:subtitle="Powered By HAPS"
+        app:subtitle="Powered By Omega Parkashan"
         app:titleTextColor="@color/white" />
 
     <!-- Container to overlay ViewPager and text -->

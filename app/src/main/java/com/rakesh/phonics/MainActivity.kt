@@ -29,9 +29,9 @@ class MainActivity : AppCompatActivity() {
 
         val letters = List(26) { i ->
             val letter = ('A' + i).toString()
-            val audioPath = "alphasounds_${'a' + i}.mp3"
+            val audioPath = "alphabets/${'A' + i}.mp3"
             LetterData(letter, audioPath)
-        }
+        }.shuffled()
 
         val toolbar: MaterialToolbar = findViewById(R.id.materialToolBar)
         setSupportActionBar(toolbar)
