@@ -17,23 +17,28 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:layout_marginTop="100dp"
-            android:src="@drawable/logo_omega" />
+            android:baselineAligned="false"
+            android:src="@drawable/logo" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
-            android:text="Welcome to The Phonics App"
+            android:text="@string/app_name"
             android:textColor="@color/black"
             android:textSize="26sp"
+            android:textAlignment="center"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Powered By Omega Parkashan"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:lineHeight="30dp"
+            android:text="For Foundational Years\n(Bal Vatika to Grade 2)"
             android:textSize="20sp" />
 
 
@@ -60,19 +65,19 @@
                     android:id="@+id/btn_learn_letter_with_word_sounds"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="22sp"
-                    android:padding="14dp"
                     android:backgroundTint="#447E00"
+                    android:padding="14dp"
                     android:text="Learn single letter sounds"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="0dp"
                 app:cardBackgroundColor="#A6FFC107"
                 app:cardCornerRadius="0dp"
+                app:cardElevation="0dp"
                 app:contentPaddingBottom="50dp"
                 app:contentPaddingLeft="20dp"
                 app:contentPaddingRight="20dp"
@@ -83,19 +88,19 @@
                     android:id="@+id/btn_learn_single_letter_sound"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="22sp"
-                    android:padding="12dp"
                     android:backgroundTint="#926D04"
-                    android:text="Practise Single Learn letter sounds"
-                    android:textColor="@color/white" />
+                    android:padding="12dp"
+                    android:text="Practise Single letter sounds"
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="0dp"
                 app:cardBackgroundColor="#9E6BAEDE"
                 app:cardCornerRadius="0dp"
+                app:cardElevation="0dp"
                 app:contentPaddingBottom="50dp"
                 app:contentPaddingLeft="20dp"
                 app:contentPaddingRight="20dp"
@@ -106,18 +111,18 @@
                     android:id="@+id/btn_learn_two_letter_sound"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="22sp"
                     android:padding="12dp"
                     android:text="Practice blending Two letter words"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="0dp"
                 app:cardBackgroundColor="#8FA46FF8"
                 app:cardCornerRadius="0dp"
+                app:cardElevation="0dp"
                 app:contentPaddingBottom="50dp"
                 app:contentPaddingLeft="20dp"
                 app:contentPaddingRight="20dp"
@@ -128,19 +133,19 @@
                     android:id="@+id/btn_learn_three_letter_sound"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="22sp"
-                    android:padding="12dp"
                     android:backgroundTint="#9C27B0"
+                    android:padding="12dp"
                     android:text="Practice blending Three letter words"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="0dp"
                 app:cardBackgroundColor="#92C17A00"
                 app:cardCornerRadius="0dp"
+                app:cardElevation="0dp"
                 app:contentPaddingBottom="50dp"
                 app:contentPaddingLeft="20dp"
                 app:contentPaddingRight="20dp"
@@ -151,11 +156,11 @@
                     android:id="@+id/btn_learn_four_letter_sound"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="22sp"
-                    android:padding="12dp"
                     android:backgroundTint="#A66902"
+                    android:padding="12dp"
                     android:text="Practice blending Four letter words"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
             </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>

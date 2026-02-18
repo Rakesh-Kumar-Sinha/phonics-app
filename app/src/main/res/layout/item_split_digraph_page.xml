@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#026894">
+
+    <!-- ARC will be added here dynamically -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="80dp">
+
+        <LinearLayout
+            android:id="@+id/rowLetters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginBottom="48dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/wordBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:minWidth="200dp"
+            android:minHeight="60dp"
+            android:textSize="24sp"
+            android:textAllCaps="false"
+            app:cornerRadius="12dp"
+            app:backgroundTint="#FF6B35"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+</FrameLayout>

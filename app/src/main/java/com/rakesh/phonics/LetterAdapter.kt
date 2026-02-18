@@ -39,7 +39,7 @@ class LetterAdapter(
 
     override fun onBindViewHolder(holder: LetterViewHolder, position: Int) {
         val data = letters[position]
-        holder.tvLetter.text = data.letter
+        holder.tvLetter.text = data.letter.lowercase()
 
         val color = vibrantColors.random()
         holder.cardBg.setBackgroundColor(color)
