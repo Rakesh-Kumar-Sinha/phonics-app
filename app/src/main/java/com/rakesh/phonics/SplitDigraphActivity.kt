@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.appbar.MaterialToolbar
 import com.rakesh.phonics.adapters.SplitDigraphPagerAdapter
+import com.rakesh.phonics.helpers.FinalPopupHelper.FinalPopupHelper
 import com.rakesh.phonics.models.Digraph
 import com.rakesh.phonics.models.SplitDigraphItem
 import com.rakesh.phonics.models.SplitDigraphs
@@ -83,7 +84,51 @@ class SplitDigraphActivity : AppCompatActivity() {
 
         }
 //
+//        viewPager.adapter = SplitDigraphPagerAdapter(this, items)
         viewPager.adapter = SplitDigraphPagerAdapter(this, items)
+
+        var currentPosition = 0
+        var isUserDragging = false
+        var dragStartedOnLast = false
+        val lastPosition = items.size - 1
+
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                currentPosition = position
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+                super.onPageScrollStateChanged(state)
+
+                when (state) {
+
+                    ViewPager2.SCROLL_STATE_DRAGGING -> {
+                        isUserDragging = true
+
+                        // Check if drag started while already on last page
+                        if (currentPosition == lastPosition) {
+                            dragStartedOnLast = true
+                        }
+                    }
+
+                    ViewPager2.SCROLL_STATE_IDLE -> {
+
+                        // If drag started on last AND still on last → user tried to overscroll
+                        if (isUserDragging &&
+                            dragStartedOnLast &&
+                            currentPosition == lastPosition
+                        ) {
+                            FinalPopupHelper.show(this@SplitDigraphActivity)
+                        }
+
+                        isUserDragging = false
+                        dragStartedOnLast = false
+                    }
+                }
+            }
+        })
     }
 
     override fun onStop() {

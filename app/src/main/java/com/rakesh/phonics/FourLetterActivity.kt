@@ -12,6 +12,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.appbar.MaterialToolbar
 import com.rakesh.phonics.adapters.FourLetterAdapter
 import com.rakesh.phonics.adapters.ThreeLetterAdapter
+import com.rakesh.phonics.helpers.FinalPopupHelper.FinalPopupHelper
 import com.rakesh.phonics.models.FourLetter
 import com.rakesh.phonics.models.TripleLetter
 
@@ -31,9 +32,17 @@ class FourLetterActivity : AppCompatActivity() {
         viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         swipeHint.visibility = View.VISIBLE
 
+        var currentPosition = 0
+        var isUserDragging = false
+        var dragStartedOnLast = false
+        val lastPosition = letterList.size - 1
+
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
+
+                currentPosition = position
 
                 // Update slide number
                 var finalShow = "${position + 1} / ${letterList.size}"
@@ -43,10 +52,38 @@ class FourLetterActivity : AppCompatActivity() {
                 }
 
                 swipeHint.text = finalShow
+            }
 
+            override fun onPageScrollStateChanged(state: Int) {
+                super.onPageScrollStateChanged(state)
 
-                // Show swipe hint only on first page
-//                swipeHint.visibility = if (position == 0) View.VISIBLE else View.GONE
+                when (state) {
+
+                    ViewPager2.SCROLL_STATE_DRAGGING -> {
+
+                        isUserDragging = true
+
+                        // Detect if drag started while already on last page
+                        if (currentPosition == lastPosition) {
+                            dragStartedOnLast = true
+                        }
+                    }
+
+                    ViewPager2.SCROLL_STATE_IDLE -> {
+
+                        // If drag started on last AND still on last
+                        // → user tried to scroll beyond content
+                        if (isUserDragging &&
+                            dragStartedOnLast &&
+                            currentPosition == lastPosition
+                        ) {
+                            FinalPopupHelper.show(this@FourLetterActivity)
+                        }
+
+                        isUserDragging = false
+                        dragStartedOnLast = false
+                    }
+                }
             }
         })
 

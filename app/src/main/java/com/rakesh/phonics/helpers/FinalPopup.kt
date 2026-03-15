@@ -20,8 +20,8 @@ object FinalPopupHelper {
 
         dialog?.setContentView(R.layout.popup_final)
 
-        dialog?.setCancelable(true)
-        dialog?.setCanceledOnTouchOutside(true)
+        dialog?.setCancelable(false)
+        dialog?.setCanceledOnTouchOutside(false)
 
         dialog?.window?.setLayout(
             (activity.resources.displayMetrics.widthPixels * 0.85).toInt(),

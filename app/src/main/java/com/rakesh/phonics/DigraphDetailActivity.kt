@@ -60,6 +60,7 @@ class DigraphDetailActivity : AppCompatActivity() {
         var currentPosition = 0
         val lastPosition = items.size - 1
         var isUserDragging = false
+        var dragStartedOnLast = false
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
 
@@ -81,23 +82,30 @@ class DigraphDetailActivity : AppCompatActivity() {
                 when (state) {
 
                     ViewPager2.SCROLL_STATE_DRAGGING -> {
+
                         isUserDragging = true
+
+                        // Detect drag started while already on last page
+                        if (currentPosition == lastPosition) {
+                            dragStartedOnLast = true
+                        }
                     }
 
                     ViewPager2.SCROLL_STATE_IDLE -> {
 
-                        // User tried to swipe beyond last page
-                        if (isUserDragging && currentPosition == lastPosition) {
-
+                        // Only show if user attempted to overscroll past last
+                        if (isUserDragging &&
+                            dragStartedOnLast &&
+                            currentPosition == lastPosition
+                        ) {
                             FinalPopupHelper.show(this@DigraphDetailActivity)
-
                         }
 
                         isUserDragging = false
+                        dragStartedOnLast = false
                     }
                 }
             }
-
         })
 
     }

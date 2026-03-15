@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.appbar.MaterialToolbar
+import com.rakesh.phonics.helpers.FinalPopupHelper.FinalPopupHelper
 import com.rakesh.phonics.models.LSM
 
 class LearnSingleLetterActivity : AppCompatActivity() {
@@ -86,15 +87,55 @@ class LearnSingleLetterActivity : AppCompatActivity() {
         slideNumber.text = "1 / ${letters.size}"
         swipeHint.visibility = View.VISIBLE
 
+        var currentPosition = 0
+        var isUserDragging = false
+        var dragStartedOnLast = false
+        val lastPosition = letters.size - 1
+
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
+
+                currentPosition = position
 
                 // Update slide number
                 slideNumber.text = "${position + 1} / ${letters.size}"
 
                 // Show swipe hint only on first page
                 swipeHint.visibility = if (position == 0) View.VISIBLE else View.GONE
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+                super.onPageScrollStateChanged(state)
+
+                when (state) {
+
+                    ViewPager2.SCROLL_STATE_DRAGGING -> {
+
+                        isUserDragging = true
+
+                        // Detect drag starting while already on last page
+                        if (currentPosition == lastPosition) {
+                            dragStartedOnLast = true
+                        }
+                    }
+
+                    ViewPager2.SCROLL_STATE_IDLE -> {
+
+                        // If drag started on last AND still on last
+                        // → user attempted to scroll beyond content
+                        if (isUserDragging &&
+                            dragStartedOnLast &&
+                            currentPosition == lastPosition
+                        ) {
+                            FinalPopupHelper.show(this@LearnSingleLetterActivity)
+                        }
+
+                        isUserDragging = false
+                        dragStartedOnLast = false
+                    }
+                }
             }
         })
     }

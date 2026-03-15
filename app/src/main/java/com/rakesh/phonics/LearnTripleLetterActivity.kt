@@ -50,21 +50,8 @@ class LearnTripleLetterActivity : AppCompatActivity() {
         var currentPosition = 0
         var lastPosition = letterList.size - 1
         var isUserDragging = false
+        var dragStartedOnLast = false
 
-//        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-//            override fun onPageSelected(position: Int) {
-//                super.onPageSelected(position)
-//
-//                var finalShow = "${position + 1} / ${letterList.size}"
-//
-//                if (position == 0) {
-//                    finalShow += "  Swipe ➡"
-//                }
-//
-//                swipeHint.text = finalShow
-//
-//            }
-//        })
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
 
             override fun onPageSelected(position: Int) {
@@ -89,23 +76,30 @@ class LearnTripleLetterActivity : AppCompatActivity() {
                 when (state) {
 
                     ViewPager2.SCROLL_STATE_DRAGGING -> {
+
                         isUserDragging = true
+
+                        // Detect if drag started while already on last page
+                        if (currentPosition == lastPosition) {
+                            dragStartedOnLast = true
+                        }
                     }
 
                     ViewPager2.SCROLL_STATE_IDLE -> {
 
-                        // User tried to swipe beyond last page
-                        if (isUserDragging && currentPosition == lastPosition) {
-
+                        // Only show if user attempted to overscroll
+                        if (isUserDragging &&
+                            dragStartedOnLast &&
+                            currentPosition == lastPosition
+                        ) {
                             FinalPopupHelper.show(this@LearnTripleLetterActivity)
-
                         }
 
                         isUserDragging = false
+                        dragStartedOnLast = false
                     }
                 }
             }
-
         })
 
 

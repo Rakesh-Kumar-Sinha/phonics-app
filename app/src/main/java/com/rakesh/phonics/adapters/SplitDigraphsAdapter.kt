@@ -40,11 +40,11 @@ class SplitDigraphsAdapter(
 
         // Always bind text and initial icon based on playing state
         holder.textDigraph.text = item.text
-        if (position == currentlyPlayingPosition) {
-            holder.btnDigraph.setImageResource(R.drawable.speaker_red)
-        } else {
-            holder.btnDigraph.setImageResource(R.drawable.speakerx)
-        }
+//        if (position == currentlyPlayingPosition) {
+//            holder.btnDigraph.setImageResource(R.drawable.speaker_red)
+//        } else {
+//            holder.btnDigraph.setImageResource(R.drawable.speakerx)
+//        }
 
         holder.btnDigraph.setOnClickListener {
             // If same item clicked while playing -> stop

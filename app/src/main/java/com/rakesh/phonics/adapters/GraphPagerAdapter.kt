@@ -122,7 +122,20 @@ class GraphPagerAdapter(
     }
 
     private fun extractGraph(folder: String): String {
-        val afterUnderscore = folder.substringAfterLast("_").lowercase()
+        var afterUnderscore = "";
+        if(folder.contains("(")){
+            val parts = folder.split("_")
+
+            val secondLast = if (parts.size >= 2) {
+                parts[parts.size - 2].lowercase()
+            } else {
+                ""
+            }
+             afterUnderscore = secondLast
+        }else{
+             afterUnderscore = folder.substringAfterLast("_").lowercase()
+        }
+
         val match = Regex("^[a-z]+").find(afterUnderscore)
         return match?.value ?: ""
     }

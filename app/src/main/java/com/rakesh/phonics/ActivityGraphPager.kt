@@ -26,7 +26,7 @@ class ActivityGraphPager : AppCompatActivity() {
 
         val pager = findViewById<ViewPager2>(R.id.viewPager)
         pager.adapter = GraphPagerAdapter(this, type, folder, files)
-        Log.d("Hellp","asdas");
+
         TabLayoutMediator(
             findViewById(R.id.indicator),
             pager
@@ -35,6 +35,7 @@ class ActivityGraphPager : AppCompatActivity() {
         var currentPosition = 0
         val lastPosition = (pager.adapter?.itemCount ?: 0) - 1
         var isUserDragging = false
+        var dragStartedOnLast = false
 
         pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
 
@@ -49,19 +50,27 @@ class ActivityGraphPager : AppCompatActivity() {
                 when (state) {
 
                     ViewPager2.SCROLL_STATE_DRAGGING -> {
+
                         isUserDragging = true
+
+                        // Detect if drag started while already on last page
+                        if (currentPosition == lastPosition) {
+                            dragStartedOnLast = true
+                        }
                     }
 
                     ViewPager2.SCROLL_STATE_IDLE -> {
 
-                        if (isUserDragging && currentPosition == lastPosition) {
-
-                            // ✅ One line reusable call
+                        // Only show if user attempted to scroll past last page
+                        if (isUserDragging &&
+                            dragStartedOnLast &&
+                            currentPosition == lastPosition
+                        ) {
                             FinalPopupHelper.show(this@ActivityGraphPager)
-
                         }
 
                         isUserDragging = false
+                        dragStartedOnLast = false
                     }
                 }
             }

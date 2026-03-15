@@ -29,9 +29,21 @@ class SplitDigraphList : AppCompatActivity() {
         val folders = assetManager.list("split_digraphs") ?: arrayOf()
 
         for (folderName in folders) {
+            val parts = folderName.split("_")
+
+            val formattedName = if (parts.size >= 3) {
+                val first = parts[0].replaceFirstChar { it.uppercase() }
+                val second = parts[1]
+                val third = parts[2].chunked(1).joinToString("_") // ae → a_e
+
+                "$first $second $third"
+            } else {
+                folderName
+            }
+
             list.add(
                 SplitDigraphs(
-                    folderName.replace("_", " "),
+                    formattedName,
                     "split_digraphs/$folderName/main/main.mp3",
                     "split_digraphs/$folderName/"
                 )

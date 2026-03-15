@@ -79,7 +79,7 @@ class SplitDigraphPagerAdapter(
             val tv = TextView(context).apply {
                 tag = index
                 text = if (isSplit) {
-                    c.toString()+"\n"
+                    c.toString() + "\n"
                 } else {
                     "${c}\n•"
                 }
@@ -95,8 +95,9 @@ class SplitDigraphPagerAdapter(
             tv.setOnClickListener {
                 resetActive()
 
-                if (isSplit) {
-                    // ✅ BOTH split letters turn RED
+                if (isSplit && index == item.indices.first()) {
+
+                    // Highlight both letters
                     item.indices.forEach { i ->
                         letterViews[i]?.let { view ->
                             view.setTextColor(Color.RED)
@@ -104,6 +105,7 @@ class SplitDigraphPagerAdapter(
                         }
                     }
 
+                    // Play split sound ONLY once
                     SoundPlayer.play(
                         context,
                         item.digraphSound,
@@ -115,6 +117,9 @@ class SplitDigraphPagerAdapter(
                         }
                     )
 
+                } else if (isSplit) {
+                    // Do nothing when second split letter is clicked
+                    return@setOnClickListener
                 } else {
                     // ✅ SINGLE letter logic
                     tv.setTextColor(Color.RED)
